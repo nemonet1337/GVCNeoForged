@@ -1,25 +1,73 @@
+# GVCNF Readme
 
-Installation information
-=======
+このmodはHMGVCReversion1.12.2を全面改修したものです
+主な改修内容は以下になります
+1. Forge 1.12.2 から NeoForge 1.21.1 に移行
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+## はじめに
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+このmodは非公式で作成されたものです
+MG36様から公開停止、もしくはそれに準ずる要求を受けた際にはリポジトリを削除する可能性があります
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+## 導入方法
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+1. NeoForge 1.21.1 以上を導入する。
+2. このjarをmodフォルダに入れる。
+3. ゲームを起動してタイトルまで行ければ導入成功です。
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+## ワールド作成時について
+
+新規にワールドを生成時、スポーン地点付近に支援物資が生成されます
+物資には最低限生存可能なアイテムの他、所謂チュートリアルブック的な
+統合情報端末がありますので上手く活用してください
+
+## 統合情報端末について
+
+下記に示す進行度の他、レシピや各種操作方法が確認出来ます
+
+## 進行度について
+
+特定の条件をこなすと、ゲリラの武装が変化などしていきます。
+現在の進行度は統合情報端末のMISSIONの項目から確認出来ます。
+
+## 生成物について
+
+主にオーバーワールド(通常世界)の各地に生成されます
+生成についてはconfigで制御可能です
+
+- **IED**: 地表に生成されます。ゲリラの仕掛けた即席爆弾です。
+- **不発弾**: 地表に生成されます。大型車両などで踏みつけると爆発することがあります
+- **機雷**: 海上に生成されます。大型車両などで踏みつけると爆発することがあります
+- **放棄されたガスタンク**: 放棄されたトーチカなどに生成されることがあります。爆発すると毒ガスをまき散らします
+- **支援物資**: スポーン地点付近に生成されます
+- **バックパック**: 地表に生成されます。破壊すると弾薬などを落とします
+- **死体**: 地表に生成されます。破壊すると銃などを落とします
+- **戦車の残骸**: 地表に生成されます。破壊するとスクラップや鉄などを落とします
+- **スクラップ**: 地表に生成されます。破壊するとスクラップなどを落とします
+- **段ボール**: ？
+
+## スペシャルサンクス
+
+**HMGVCReversion1.12.2製作者**: @SCOPE_MG36様
+
+
+以下元modのスペシャルサンクス様 
+
+**US.lang作成**: NattoLover15様
+**ko_KR.lang作成**: @KoRyua_K様
+
+**ダンジョン作成**:
+- @tikatti1様
+- @U_5461様
+- @Maiharu10様
+- @PEON_589様
+- @hojyo_minecraft様
+
+**兵器モデル作成**: @U_5461様
+**ガンラックモデル作成**: @U_5461様
+**各種ブロック作成**: @U_5461様
+
+## 更新履歴
+
+### 10/27 追加
+- 初期コミット公開
