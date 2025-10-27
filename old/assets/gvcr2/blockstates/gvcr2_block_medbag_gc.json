@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_medbag_gc" },
+"facing=south": { "model": "gvcr2:gvcr2_block_medbag_gc" },
+"facing=west": { "model": "gvcr2:gvcr2_block_medbag_gc" },
+"facing=east": { "model": "gvcr2:gvcr2_block_medbag_gc" }
+}
+}

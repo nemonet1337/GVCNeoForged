@@ -1,0 +1,8 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "bottom": "gvcr2:blocks/gvcr2_block_light_block_g_bottom",
+        "top": "gvcr2:blocks/gvcr2_block_light_block_g_top",
+        "side": "gvcr2:blocks/gvcr2_block_light_block_g_side"
+    }
+}

@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_m18_claymore" },
+"facing=south": { "model": "gvcr2:gvcr2_block_m18_claymore" },
+"facing=west": { "model": "gvcr2:gvcr2_block_m18_claymore" },
+"facing=east": { "model": "gvcr2:gvcr2_block_m18_claymore" }
+}
+}

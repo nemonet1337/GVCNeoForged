@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_m72_box" },
+"facing=south": { "model": "gvcr2:gvcr2_block_m72_box" },
+"facing=west": { "model": "gvcr2:gvcr2_block_m72_box" },
+"facing=east": { "model": "gvcr2:gvcr2_block_m72_box" }
+}
+}

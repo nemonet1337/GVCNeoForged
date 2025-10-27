@@ -1,0 +1,93 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Client",
+      "presentation": {
+        "group": "Mod Development - GVCNeoForged",
+        "order": 0
+      },
+      "projectName": "GVCNeoForged",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Github\\GVCNeoForged\\build\\moddev\\clientRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Github\\GVCNeoForged\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dgvcneoforged%%C:\\Github\\GVCNeoForged\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Data",
+      "presentation": {
+        "group": "Mod Development - GVCNeoForged",
+        "order": 1
+      },
+      "projectName": "GVCNeoForged",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Github\\GVCNeoForged\\build\\moddev\\dataRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Github\\GVCNeoForged\\build\\moddev\\dataRunVmArgs.txt",
+        "-Dfml.modFolders\u003dgvcneoforged%%C:\\Github\\GVCNeoForged\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "GameTestServer",
+      "presentation": {
+        "group": "Mod Development - GVCNeoForged",
+        "order": 2
+      },
+      "projectName": "GVCNeoForged",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Github\\GVCNeoForged\\build\\moddev\\gameTestServerRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Github\\GVCNeoForged\\build\\moddev\\gameTestServerRunVmArgs.txt",
+        "-Dfml.modFolders\u003dgvcneoforged%%C:\\Github\\GVCNeoForged\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Server",
+      "presentation": {
+        "group": "Mod Development - GVCNeoForged",
+        "order": 3
+      },
+      "projectName": "GVCNeoForged",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Github\\GVCNeoForged\\build\\moddev\\serverRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Github\\GVCNeoForged\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dgvcneoforged%%C:\\Github\\GVCNeoForged\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    }
+  ]
+}

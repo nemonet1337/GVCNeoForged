@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+"t  ",
+" i ",
+"  g"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+   "g": {
+      "item": "minecraft:gunpowder"
+    },
+   "t": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "result": {
+    "item": "hmggvc:gun_magazinerpg",
+    "count": 4
+  }
+}

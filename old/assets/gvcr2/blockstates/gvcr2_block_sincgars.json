@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_sincgars" },
+"facing=south": { "model": "gvcr2:gvcr2_block_sincgars" },
+"facing=west": { "model": "gvcr2:gvcr2_block_sincgars" },
+"facing=east": { "model": "gvcr2:gvcr2_block_sincgars" }
+}
+}

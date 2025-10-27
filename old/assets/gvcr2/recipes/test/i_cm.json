@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+"ppp",
+"pap",
+"ppp"
+  ],
+  "key": {
+    "p": {
+      "item": "minecraft:paper"
+    },
+   "a": {
+      "item": "minecraft:apple"
+    }
+  },
+  "result": {
+    "item": "hmggvc:i_cm",
+    "count": 1
+  }
+}

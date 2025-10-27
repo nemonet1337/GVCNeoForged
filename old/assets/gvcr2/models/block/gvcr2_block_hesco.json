@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "gvcr2:blocks/hesco_top",
+        "down": "gvcr2:blocks/hesco_top",
+        "up": "gvcr2:blocks/hesco_top",
+        "north": "gvcr2:blocks/hesco_side",
+        "east": "gvcr2:blocks/hesco_side",
+        "south": "gvcr2:blocks/hesco_side",
+        "west": "gvcr2:blocks/hesco_side"
+    }
+}

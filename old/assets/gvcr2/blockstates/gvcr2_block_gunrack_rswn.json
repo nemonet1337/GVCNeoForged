@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_gunrack_rswn" },
+"facing=south": { "model": "gvcr2:gvcr2_block_gunrack_rswn" },
+"facing=west": { "model": "gvcr2:gvcr2_block_gunrack_rswn" },
+"facing=east": { "model": "gvcr2:gvcr2_block_gunrack_rswn" }
+}
+}

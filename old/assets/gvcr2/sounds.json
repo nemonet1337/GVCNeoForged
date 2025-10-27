@@ -1,0 +1,10 @@
+{
+"hmggvc.reload": { "category": "neutral","sounds": [{"name": "hmggvc:reload","stream": true}]},
+"hmggvc.shot2": { "category": "neutral","sounds": [{"name": "hmggvc:shot2","stream": true}]},
+"hmggvc.fire": {"category": "neutral","sounds": [{"name": "hmggvc:sg","stream": true}]},
+"hmggvc.firehg": {"category": "neutral","sounds": [{"name": "hmggvc:hg","stream": true}]},
+"hmggvc.jet1": {"category": "neutral","sounds": [{"name": "hmggvc:jet1","stream": true}]},
+"hmggvc.jet2": {"category": "neutral","sounds": [{"name": "hmggvc:jet2","stream": true}]},
+"hmggvc.lock": {"category": "neutral","sounds": [{"name": "hmggvc:lock","stream": true}]},
+"hmggvc.fireee": {"category": "neutral","sounds": [{"name": "hmggvc:fireee","stream": true}]}
+}

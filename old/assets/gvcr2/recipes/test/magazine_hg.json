@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+"c",
+"g"
+  ],
+  "key": {
+    "c": {
+      "item": "minecraft:cobblestone"
+    },
+   "g": {
+      "item": "minecraft:gunpowder"
+    }
+  },
+  "result": {
+    "item": "hmggvc:gun_magazinehg",
+    "count": 2
+  }
+}

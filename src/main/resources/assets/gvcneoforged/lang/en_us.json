@@ -1,0 +1,13 @@
+{
+  "itemGroup.gvcneoforged": "Example Mod Tab",
+  "block.gvcneoforged.example_block": "Example Block",
+  "item.gvcneoforged.example_item": "Example Item",
+
+  "gvcneoforged.configuration.title": "GVCNeoForged Configs",
+  "gvcneoforged.configuration.section.gvcneoforged.common.toml": "GVCNeoForged Configs",
+  "gvcneoforged.configuration.section.gvcneoforged.common.toml.title": "GVCNeoForged Configs",
+  "gvcneoforged.configuration.items": "Item List",
+  "gvcneoforged.configuration.logDirtBlock": "Log Dirt Block",
+  "gvcneoforged.configuration.magicNumberIntroduction": "Magic Number Text",
+  "gvcneoforged.configuration.magicNumber": "Magic Number"
+}

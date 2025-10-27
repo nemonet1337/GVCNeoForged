@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_ammo_mass" },
+"facing=south": { "model": "gvcr2:gvcr2_block_ammo_mass" },
+"facing=west": { "model": "gvcr2:gvcr2_block_ammo_mass" },
+"facing=east": { "model": "gvcr2:gvcr2_block_ammo_mass" }
+}
+}

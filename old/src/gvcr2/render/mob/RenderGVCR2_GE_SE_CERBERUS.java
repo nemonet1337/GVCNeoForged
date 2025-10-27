@@ -1,0 +1,411 @@
+package gvcr2.render.mob;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
+import gvclib.event.gun.Layermat;
+import gvclib.item.ItemGunBase;
+import gvclib.render.ModelBase_Non;
+import gvcr2.entity.mob.EntityGVCR2_GE_SE_CERBERUS;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import objmodel.AdvancedModelLoader;
+import objmodel.IModelCustom;
+
+@SideOnly(Side.CLIENT)
+public class RenderGVCR2_GE_SE_CERBERUS extends RenderLiving<EntityGVCR2_GE_SE_CERBERUS> //extends RenderLiving<EntityDoll>
+{
+	private static final ResourceLocation boatTextures = new ResourceLocation("gvcr2:textures/mob/model/biped/cerberus.png");
+    private static final IModelCustom tankk = AdvancedModelLoader.loadModel(new ResourceLocation("gvcr2:textures/mob/model/biped/cerberus.mqo"));
+    
+    public RenderGVCR2_GE_SE_CERBERUS(RenderManager renderManagerIn)
+    {
+        //super(renderManagerIn, new ModelDoll(dollmodel, dolltex),0.5F * 1);
+    	super(renderManagerIn, new ModelBase_Non(),0.5F);
+        this.shadowSize = 0.5F;
+    }
+
+    public void rendermodel(EntityGVCR2_GE_SE_CERBERUS entity, String model) {
+    	tankk.renderPart(model);
+    }
+    
+    /**
+     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
+     */
+    protected ResourceLocation getEntityTexture(EntityGVCR2_GE_SE_CERBERUS entity)
+    {
+    	ResourceLocation dolltex = boatTextures;
+		return dolltex;
+    }
+    
+    
+    
+    /**
+     * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
+     * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
+     * (Render<T extends Entity>) and this method has signature public void func_76986_a(T entity, double d, double d1,
+     * double d2, float f, float f1). But JAD is pre 1.5 so doe
+     */
+    float iii;
+    public void doRender(EntityGVCR2_GE_SE_CERBERUS entity, double x, double y, double z, float entityYaw, float partialTicks)
+    {
+    	float limbSwing = this.F6(entity, partialTicks);
+		float limbSwingAmount = this.F5(entity, partialTicks);
+    	this.bindEntityTexture(entity);
+    	GL11.glPushMatrix();
+		GL11.glTranslatef((float) x, (float) y, (float) z);
+		GL11.glRotatef(180F, 0.0F, 1.0F, 0.0F);
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+
+		if(entity.deathTime > 0){
+			GL11.glColor4f(0.6F, 0.6F, 0.6F, 1F);
+		}else {
+			if(entity.hurtTime > 0) {
+				GL11.glColor4f(0.7F, 0.2F, 0.2F, 1F);
+			}else {
+				GL11.glColor4f(1F, 1F, 1F, 1F);
+			}
+		}
+		if(entity.getattacktask() && !(entity.deathTime > 0)) {
+			GL11.glRotatef(180.0F - entity.rotationYawHead, 0.0F, 1.0F, 0.0F);
+		}else {
+			GL11.glRotatef(180.0F - entity.renderYawOffset, 0.0F, 1.0F, 0.0F);
+		}
+		{
+			GL11.glPushMatrix();//glstart
+			this.renderlegs(entity, limbSwing, limbSwingAmount, partialTicks);
+			GL11.glPopMatrix();//glend
+		}
+		if(entity.isRiding()) {
+			GL11.glTranslatef(0F, -0.5F, 0.0F);
+		}
+		{
+			GL11.glPushMatrix();//glstart
+			this.renderbody(entity, limbSwing, limbSwingAmount, partialTicks);
+			GL11.glPopMatrix();//glend
+		}
+		this.bindEntityTexture(entity);
+		if(entity.deathTime > 0){
+			GL11.glTranslatef(0F, -0.1F, 0.25F);
+			GL11.glTranslatef(0F, 1.5F, 0.0F);
+			GL11.glRotatef(10, 1.0F, 0.0F, 0.0F);
+			GL11.glTranslatef(0F, -1.5F, 0.0F);
+		}
+		if(entity.getattacktask() && !(entity.deathTime > 0)) {
+			GL11.glRotatef(-(180.0F - entity.rotationYawHead), 0.0F, 1.0F, 0.0F);
+		}else {
+			GL11.glRotatef(-(180.0F - entity.renderYawOffset), 0.0F, 1.0F, 0.0F);
+		}
+		GL11.glTranslatef(0F, 1.5F, 0.0F);
+		GL11.glRotatef(180.0F - entity.rotationYawHead, 0.0F, 1.0F, 0.0F);
+		GL11.glRotatef(entity.rotationPitch, 1.0F, 0.0F, 0.0F);
+		GL11.glTranslatef(0F, -1.5F, 0.0F);
+		this.rendermodel(entity, "head");
+		this.rendermodel(entity, "head1");
+		EntityPlayer player = Minecraft.getMinecraft().player;
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glPopMatrix();
+		super.doRender(entity, x, y, z, entityYaw, partialTicks);
+    }
+    
+    private void renderlegs(EntityGVCR2_GE_SE_CERBERUS entity, float limbSwing, float limbSwingAmount, float partialTicks){
+    	GL11.glPushMatrix();//glstart
+    	{
+			float Ax = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * limbSwingAmount;
+			GL11.glTranslatef(0.15F, 0.625F, 0.0F);//GL11.glTranslatef(0.15F, 0.75F, 0.0F);
+			if(entity.getMoveT() == 3 || entity.isRiding()) {
+				GL11.glTranslatef(0F, -0.5F, 0.0F);
+				GL11.glRotatef(-90, 1.0F, 0.0F, 0.0F);
+				GL11.glRotatef(20, 0.0F, 0.0F, 1.0F);
+			}else {
+				GL11.glRotatef(Ax * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
+			}
+			GL11.glTranslatef(-0.15F, -0.625F, 0.0F);
+			this.rendermodel(entity, "leg_l");
+		}
+		GL11.glPopMatrix();//glend
+		
+		GL11.glPushMatrix();//glstart
+		{
+			float Ax =MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+			GL11.glTranslatef(-0.15F, 0.625F, 0.0F);
+			if(entity.getMoveT() == 3 || entity.isRiding()) {
+				GL11.glTranslatef(0F, -0.5F, 0.0F);
+				GL11.glRotatef(-90, 1.0F, 0.0F, 0.0F);
+				GL11.glRotatef(-20, 0.0F, 0.0F, 1.0F);
+			}else {
+				GL11.glRotatef(Ax * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
+			}
+			GL11.glTranslatef(0.15F, -0.625F, 0.0F);
+			this.rendermodel(entity, "leg_r");
+		}
+		GL11.glPopMatrix();//glend
+	}
+    
+    private void renderbody(EntityGVCR2_GE_SE_CERBERUS entity, float limbSwing, float limbSwingAmount, float partialTicks){
+    	if(entity.deathTime > 0){
+    		GL11.glTranslatef(0F, 0.75F, 0.0F);
+    		GL11.glRotatef(20, 1.0F, 0.0F, 0.0F);
+    		GL11.glTranslatef(0F, -0.75F, 0.0F);
+    	}
+    	GL11.glPushMatrix();//glstart
+    	this.rendermodel(entity, "body");
+		this.rendermodel(entity, "body1");
+		this.rendermodel(entity, "mantle");
+		GL11.glPopMatrix();//glend
+    	
+		ItemStack main = entity.getHeldItemMainhand();
+		ItemStack off = entity.getHeldItemOffhand();
+		 float arm_l_rotex = 0;
+	     float arm_l_rotez = 0;
+	     float arm_l_rotey = 0;
+	     float arm_r_rotex = 0;
+	     float arm_r_rotez = 0;
+	     float arm_r_rotey = 0;
+    	GL11.glPushMatrix();//glstart
+    	{
+			float Ax = MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+			GL11.glTranslatef(0.35F, 1.375F, 0.0F);
+			//arm_l_rotex = (MathHelper.sin(partialTicks * 0.067F) * 0.05F) * (180F / (float)Math.PI);
+			if(entity.getattacktask() && !(entity.deathTime > 0)) {
+				arm_l_rotex = -90 + entity.rotationPitch;
+				{
+					arm_l_rotez = -30;
+				}
+				
+			}else if(entity.getMoveT() == 3 || entity.isRiding()) {
+				arm_l_rotex = -30;
+			}
+			else if(entity.deathTime > 0){
+				arm_l_rotex = -30;
+				arm_l_rotez = -40;
+			}else {
+				if(!off.isEmpty() && off.getItem() instanceof ItemGunBase) {
+					arm_l_rotex = Ax * (180F / (float)Math.PI) - 20;
+				}else {
+					if(entity.getFTMode() == 1) {
+						arm_l_rotex = Ax * (180F / (float)Math.PI);
+					}else {
+						ItemGunBase gun = null;
+						if (!main.isEmpty() && main.getItem() instanceof ItemGunBase && (entity.getattacktask())){
+							gun = (ItemGunBase) main.getItem();
+						}
+						if(gun != null) {
+							
+							double xmove = Math.abs(entity.motionX);
+							double zmove = Math.abs(entity.motionZ);
+							if(gun.arm_l_posz > -1.0F) {
+								if(xmove > 0 || zmove > 0) {
+									arm_l_rotex = -20;
+									arm_l_rotez = -20;
+								}else {
+									arm_l_rotex = -20;
+									arm_l_rotez = -10;
+								}
+							}else {
+								if(xmove > 0 || zmove > 0) {
+									arm_l_rotex = -20;
+									arm_l_rotez = -30;
+								}else {
+									arm_l_rotex = -10;
+									arm_l_rotez = -00;
+								}
+							}
+						}else {
+							arm_l_rotex = -20;
+							arm_l_rotez = -10;
+						}
+						
+					}
+				}
+			}
+			//arm_l_rotez = (MathHelper.cos(partialTicks * 0.09F) * 0.05F + 0.05F) * (180F / (float)Math.PI);
+			//GL11.glRotatef(Ax * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
+			//GL11.glRotatef(-(MathHelper.cos(partialTicks * 0.09F) * 0.05F + 0.05F) * (180F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
+			//GL11.glRotatef(-(MathHelper.sin(partialTicks * 0.067F) * 0.05F) * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
+			GL11.glRotatef(arm_l_rotex, 1.0F, 0.0F, 0.0F);
+			GL11.glRotatef(arm_l_rotey, 0.0F, 1.0F, 0.0F);
+			GL11.glRotatef(arm_l_rotez, 0.0F, 0.0F, 1.0F);
+			
+			//GL11.glRotatef(MathHelper.sin(partialTicks / 100) * 30F, 1.0F, 0.0F, 0.0F);
+			//GL11.glRotatef(MathHelper.cos(partialTicks / 100) * 30F, 0.0F, 0.0F, 1.0F);
+			GL11.glTranslatef(-0.35F, -1.375F, 0.0F);
+			this.rendermodel(entity, "arm_l");
+			if (!off.isEmpty() && off.getItem() instanceof ItemGunBase){
+				ItemGunBase gun = (ItemGunBase) off.getItem();
+				String tex = gun.obj_tex;
+				IModelCustom model = gun.obj_model;
+				GL11.glPushMatrix();//glstart
+				GL11.glScalef(0.1875F, 0.1875F, 0.1875F);
+				GL11.glRotatef(90F, 1.0F, 0.0F, 0.0F);
+				GL11.glTranslatef(0.375F * 5.33F, 0 , -0.85F * 5.33F + 0.2F);//x,z,y
+				
+				Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(tex));
+				gun.obj_model.renderPart("mat1");
+				gun.obj_model.renderPart("mat2");
+				gun.obj_model.renderPart("mat3");
+				Layermat.rendersight( entity,  off,  gun);
+				Layermat.renderattachment( entity,  off,  gun);
+				gun.obj_model.renderPart("mat25");
+				gun.obj_model.renderPart("mat31");
+				gun.obj_model.renderPart("mat32");/**/
+				GL11.glPopMatrix();//glend
+				this.bindEntityTexture(entity);
+			}
+		}
+		GL11.glPopMatrix();//glend
+		
+		GL11.glPushMatrix();//glstart
+		{
+			float Ax = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * limbSwingAmount;
+			GL11.glTranslatef(-0.35F, 1.375F, 0.0F);
+			//arm_r_rotex = (MathHelper.sin(partialTicks * 0.067F) * 0.05F) * (180F / (float)Math.PI);
+			if(entity.getattacktask() && !(entity.deathTime > 0)) {
+				if(entity.gun_count1 < 2 && entity.firetrue){
+	    			GL11.glRotatef(-entity.gun_count1, 1.0F, 0.0F, 0.0F);
+	    		}
+				arm_r_rotex = -90 + entity.rotationPitch;
+			}else if(entity.getMoveT() == 3 || entity.isRiding()) {
+				arm_r_rotex = -30;
+			}
+			else if(entity.deathTime > 0){
+				arm_r_rotex = -20;
+			}
+			else {
+				ItemGunBase gun = null;
+				if (!main.isEmpty() && main.getItem() instanceof ItemGunBase){
+					gun = (ItemGunBase) main.getItem();
+				}
+				{
+					double xmove = Math.abs(entity.motionX);
+					double zmove = Math.abs(entity.motionZ);
+					if(gun != null && gun.arm_l_posz > -1.0F) {
+						arm_r_rotex =  - 30;
+						arm_r_rotez =   10;
+					}else {
+						if(xmove > 0 || zmove > 0) {
+							arm_r_rotex =  - 15;
+						}else {
+							arm_r_rotex =  - 5;
+						}
+					}
+				}
+			}
+			
+			//arm_r_rotez = (MathHelper.cos(partialTicks * 0.09F) * 0.05F + 0.05F) * (180F / (float)Math.PI);
+			//GL11.glRotatef(Ax * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
+			//GL11.glRotatef((MathHelper.cos(partialTicks * 0.09F) * 0.05F + 0.05F) * (180F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
+			//GL11.glRotatef((MathHelper.sin(partialTicks * 0.067F) * 0.05F) * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
+			GL11.glRotatef(arm_r_rotex, 1.0F, 0.0F, 0.0F);
+			GL11.glRotatef(arm_r_rotey, 0.0F, 1.0F, 0.0F);
+			GL11.glRotatef(arm_r_rotez, 0.0F, 0.0F, 1.0F);
+			
+			//GL11.glRotatef(MathHelper.sin(partialTicks / 100) * 50F, 1.0F, 0.0F, 0.0F);
+			//GL11.glRotatef(MathHelper.cos(partialTicks / 100) * 50F, 0.0F, 0.0F, 1.0F);
+			GL11.glTranslatef(0.35F, -1.375F, 0.0F);
+			this.rendermodel(entity, "arm_r");
+			
+			if (!main.isEmpty() && main.getItem() instanceof ItemGunBase){
+				ItemGunBase gun = (ItemGunBase) main.getItem();
+				String tex = gun.obj_tex;
+				IModelCustom model = gun.obj_model;
+				GL11.glPushMatrix();//glstart
+				GL11.glScalef(0.1875F, 0.1875F, 0.1875F);
+				GL11.glRotatef(90F, 1.0F, 0.0F, 0.0F);
+				GL11.glTranslatef(-0.375F * 5.33F, 0 , -0.85F * 5.33F + 0.2F);//x,z,y
+				if(!entity.getattacktask() && !(entity.deathTime > 0)) {
+					if(entity.getMoveT() == 3 || entity.isRiding()) {
+						if(gun.arm_l_posz > -1.0F) {
+							GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
+						}
+					}else {
+						double xx = Math.abs(entity.posX - entity.prevPosX);
+						double zz = Math.abs(entity.posZ - entity.prevPosZ);
+						double xmove = Math.abs(entity.motionX);
+						double zmove = Math.abs(entity.motionZ);
+						if(entity.getFTMode() != 1 && gun.arm_l_posz > -1.0F) {
+							//GL11.glRotatef(mod_GirlFront.test_x, 1.0F, 0.0F, 0.0F);
+							//GL11.glRotatef(mod_GirlFront.test_y, 0.0F, 1.0F, 0.0F);
+							//GL11.glRotatef(mod_GirlFront.test_z, 0.0F, 0.0F, 1.0F);
+							if(xmove > 0 || zmove > 0) {
+								/*GL11.glRotatef(mod_GirlFront.test_x, 1.0F, 0.0F, 0.0F);
+								GL11.glRotatef(mod_GirlFront.test_y, 0.0F, 1.0F, 0.0F);
+								GL11.glRotatef(mod_GirlFront.test_z, 0.0F, 0.0F, 1.0F);*/
+								GL11.glRotatef(-25, 1.0F, 0.0F, 0.0F);
+								GL11.glRotatef(20, 0.0F, 1.0F, 0.0F);
+								GL11.glRotatef(-10, 0.0F, 0.0F, 1.0F);
+							}else {
+								GL11.glRotatef(-10, 1.0F, 0.0F, 0.0F);
+								GL11.glRotatef(50, 0.0F, 1.0F, 0.0F);
+								GL11.glRotatef(-60, 0.0F, 0.0F, 1.0F);
+							}
+							
+						}
+						if(gun.arm_l_posz > -1.0F && (xx < 0.00002 && zz < 0.00002)) {
+							//GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
+						}
+					}
+				}
+				Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(tex));
+				gun.obj_model.renderPart("mat1");
+				gun.obj_model.renderPart("mat2");
+				gun.obj_model.renderPart("mat3");
+				Layermat.rendersight( entity,  main,  gun);
+				Layermat.renderattachment( entity,  main,  gun);
+				gun.obj_model.renderPart("mat25");
+				gun.obj_model.renderPart("mat31");
+				gun.obj_model.renderPart("mat32");/**/
+				GL11.glPopMatrix();//glend
+				this.bindEntityTexture(entity);
+			}
+		}
+		GL11.glPopMatrix();//glend
+	}
+    
+    
+    
+    public float F6(EntityLivingBase entity, float partialTicks){
+ 		float f6 = 0;
+ 		if (!entity.isRiding())
+        {
+            f6 = entity.limbSwing - entity.limbSwingAmount * (1.0F - partialTicks);
+            if (entity.isChild())
+            {
+                f6 *= 3.0F;
+            }
+        }
+ 		return f6;
+ 	}
+ 	public float F5(EntityLivingBase entity, float partialTicks){
+ 		float f5 = 0;
+ 		if (!entity.isRiding())
+        {
+            f5 = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * partialTicks;
+            if (f5 > 1.0F)
+            {
+                f5 = 1.0F;
+            }
+        }
+ 		return f5;
+ 	}
+    
+    protected void renderLivingAt(EntityGVCR2_GE_SE_CERBERUS entityLivingBaseIn, double x, double y, double z)
+    {
+        GlStateManager.translate((float)x, (float)y, (float)z);
+    }
+    protected float handleRotationFloat(EntityGVCR2_GE_SE_CERBERUS livingBase, float partialTicks)
+    {
+        return (float)livingBase.ticksExisted + partialTicks;
+    }
+}

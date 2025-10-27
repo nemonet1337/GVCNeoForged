@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_missile_rack1" },
+"facing=south": { "model": "gvcr2:gvcr2_block_missile_rack1" },
+"facing=west": { "model": "gvcr2:gvcr2_block_missile_rack1" },
+"facing=east": { "model": "gvcr2:gvcr2_block_missile_rack1" }
+}
+}

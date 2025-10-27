@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_wolcott" },
+"facing=south": { "model": "gvcr2:gvcr2_block_wolcott" },
+"facing=west": { "model": "gvcr2:gvcr2_block_wolcott" },
+"facing=east": { "model": "gvcr2:gvcr2_block_wolcott" }
+}
+}

@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_9mmpack_gc" },
+"facing=south": { "model": "gvcr2:gvcr2_block_9mmpack_gc" },
+"facing=west": { "model": "gvcr2:gvcr2_block_9mmpack_gc" },
+"facing=east": { "model": "gvcr2:gvcr2_block_9mmpack_gc" }
+}
+}

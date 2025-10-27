@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_wall_light_wg" },
+"facing=south": { "model": "gvcr2:gvcr2_block_wall_light_wg" },
+"facing=west": { "model": "gvcr2:gvcr2_block_wall_light_wg" },
+"facing=east": { "model": "gvcr2:gvcr2_block_wall_light_wg" }
+}
+}

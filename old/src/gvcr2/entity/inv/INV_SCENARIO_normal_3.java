@@ -1,0 +1,467 @@
+package gvcr2.entity.inv;
+
+import java.util.List;
+
+import gvclib.mod_GVCLib;
+import gvclib.entity.living.EntityMobVehicleBase;
+import gvcr2.mod_GVCR2;
+import gvcr2.block.BlockBuildingBaseFlag;
+import gvcr2.block.tile.TileEntityBlockBaseFlag;
+import gvcr2.entity.mob.EntityGVCR2_GEBase;
+import gvcr2.entity.mob.EntityGVCR2_GE_S;
+import gvcr2.entity.mob.EntityGVCR2_UNKS_C_S;
+import gvcr2.entity.vehicle.air.EntityGVCR2_AIR_AN2;
+import gvcr2.entity.vehicle.air.EntityGVCR2_AIR_YAK23;
+import gvcr2.entity.vehicle.air.EntityGVCR2_AIR_YAK23KAI;
+import gvcr2.entity.vehicle.apc.EntityGVCR2_APC_BTR60;
+import gvcr2.entity.vehicle.car.EntityGVCR2_CAR_BULLDOZER;
+import gvcr2.entity.vehicle.car.EntityGVCR2_CAR_Technical;
+import gvcr2.entity.vehicle.heli.EntityGVCR2_HELI_KA60;
+import gvcr2.entity.vehicle.heli.EntityGVCR2_HELI_MI24D;
+import gvcr2.entity.vehicle.heli.EntityGVCR2_HELI_R22;
+import gvcr2.entity.vehicle.tank.EntityGVCR2_TANK_PT76;
+import gvcr2.entity.vehicle.tank.EntityGVCR2_TANK_T34;
+import gvcr2.entity.vehicle.tank.EntityGVCR2_TANK_T55;
+import gvcr2.entity.vehicle.tank.EntityGVCR2_TANK_T72;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+
+public class INV_SCENARIO_normal_3 {
+	
+	public void scenario(EntityGVCR2_INV_SCENARIO inv_entity, int flagtimer, boolean flag_xp, boolean flag_xm, boolean flag_zp, boolean flag_zm) {
+		INV_SCENARIO scenario_base = new INV_SCENARIO();
+		
+		
+		
+		int spawn_start_time = 2;
+		int range_x = 80 + inv_entity.getArmID_L();
+		int range_z = 80 + inv_entity.getArmID_L();
+		World world = inv_entity.world;
+		int angle = scenario_base.angle_set(inv_entity, flag_xp, flag_xm, flag_zp, flag_zm);
+		 range_x = scenario_base.angle_range(inv_entity, angle, true);
+		 range_z = scenario_base.angle_range(inv_entity, angle, false);
+		boolean spawn_flag = scenario_base.spawn_flags(flag_xp, flag_xm, flag_zp, flag_zm);
+		if(inv_entity.getHealth() < spawn_start_time && !spawn_flag){
+			scenario_base.sendmessage(world, inv_entity.posX, inv_entity.posY, inv_entity.posZ, 80, "Spawning conditions not met!", true);
+			inv_entity.setHealth(200);
+		}
+		//WAVE1
+		if(inv_entity.getHealth() < spawn_start_time && inv_entity.getArmID_A() == 0 && spawn_flag){
+			inv_entity.setArmID_A(1);
+			scenario_base.sendmessage(world, inv_entity.posX, inv_entity.posY, inv_entity.posZ, 80, "WAVE1 COMMING!", true);
+			//flagtimer = 0;
+			inv_entity.setHealth(inv_entity.getMaxHealth());
+			
+			for(int c = 0; c < 3;++c){//for
+				int xx = 0;
+				int zz = 0;
+				if(c == 1) {
+					xx = -15;
+					zz = 15;
+				}
+				if(c == 2) {
+					xx = -15;
+					zz = -15;
+				}
+				{
+					for(int mm = 0; mm < 18; ++mm) {
+						spawn_g(inv_entity, scenario_base, world, mm, range_x, range_z, xx, zz);
+					}
+				}
+				{
+					spawn_btr(inv_entity, scenario_base, world, 0, range_x, range_z, xx, zz);
+				}
+				if(c != 0){
+					spawn_tank(inv_entity, scenario_base, world, 0, range_x, range_z, xx, zz);
+				}
+				if(c == 1){
+					spawn_car(inv_entity, scenario_base, world, 3, range_x, range_z, xx, zz);
+				}
+				if(c == 2){
+					spawn_car(inv_entity, scenario_base, world, 2, range_x, range_z, xx, zz);
+				}
+			}//for
+			{
+				spawn_heli(inv_entity, scenario_base, world, 0, range_x, range_z, 0, 0);
+			}
+		}//WAVE1
+		
+		
+		//WAVE2
+		if(inv_entity.getHealth() < spawn_start_time && inv_entity.getArmID_A() == 1 && spawn_flag){
+			inv_entity.setArmID_A(2);
+			scenario_base.sendmessage(world, inv_entity.posX, inv_entity.posY, inv_entity.posZ, 80, "WAVE2 COMMING!", true);
+			//flagtimer = 0;
+			inv_entity.setHealth(inv_entity.getMaxHealth());
+			
+			for(int c = 0; c < 3;++c){//for
+				int xx = 0;
+				int zz = 0;
+				if(c == 1) {
+					xx = -15;
+					zz = 15;
+				}
+				if(c == 2) {
+					xx = -15;
+					zz = -15;
+				}
+				{
+					for(int mm = 0; mm < 18; ++mm) {
+						spawn_g(inv_entity, scenario_base, world, mm, range_x, range_z, xx, zz);
+					}
+				}
+				{
+					spawn_btr(inv_entity, scenario_base, world, 0, range_x, range_z, xx, zz);
+				}
+				if(c != 0){
+					spawn_tank(inv_entity, scenario_base, world, 0, range_x, range_z, xx, zz);
+				}
+				if(c == 1){
+					spawn_car(inv_entity, scenario_base, world, 3, range_x, range_z, xx, zz);
+				}
+				if(c == 2){
+					spawn_car(inv_entity, scenario_base, world, 2, range_x, range_z, xx, zz);
+				}
+			}//for
+			{
+				spawn_heli(inv_entity, scenario_base, world, 0, range_x, range_z, 0, 0);
+			}
+		}//WAVE2
+		
+		//WAVE3
+		if(inv_entity.getHealth() < spawn_start_time && inv_entity.getArmID_A() == 2 && spawn_flag){
+					inv_entity.setArmID_A(3);
+					scenario_base.sendmessage(world, inv_entity.posX, inv_entity.posY, inv_entity.posZ, 80, "WAVE3 COMMING!", true);
+					//flagtimer = 0;
+					inv_entity.setHealth(inv_entity.getMaxHealth());
+					
+					for(int c = 0; c < 3;++c){//for
+						int xx = 0;
+						int zz = 0;
+						if(c == 1) {
+							xx = -15;
+							zz = 15;
+						}
+						if(c == 2) {
+							xx = -15;
+							zz = -15;
+						}
+						{
+							for(int mm = 0; mm < 18; ++mm) {
+								spawn_g(inv_entity, scenario_base, world, mm, range_x, range_z, xx, zz);
+							}
+						}
+						{
+							spawn_btr(inv_entity, scenario_base, world, 0, range_x, range_z, xx, zz);
+						}
+						{
+							spawn_tank(inv_entity, scenario_base, world, 0, range_x, range_z, xx, zz);
+						}
+						if(c == 1){
+							spawn_car(inv_entity, scenario_base, world, 2, range_x, range_z, xx, zz);
+						}
+						if(c == 2){
+							spawn_car(inv_entity, scenario_base, world, 2, range_x, range_z, xx, zz);
+						}
+					}//for
+					{
+						spawn_tank(inv_entity, scenario_base, world, 1, range_x, range_z, 0, 0);
+					}
+					{
+						spawn_heli(inv_entity, scenario_base, world, 0, range_x, range_z, 0, 0);
+					}
+				}//WAVE3
+		
+		//WAVE4
+				if(inv_entity.getHealth() < spawn_start_time && inv_entity.getArmID_A() == 3 && spawn_flag){
+							inv_entity.setArmID_A(4);
+							scenario_base.sendmessage(world, inv_entity.posX, inv_entity.posY, inv_entity.posZ, 80, "WAVE4 COMMING!", true);
+							//flagtimer = 0;
+							inv_entity.setHealth(inv_entity.getMaxHealth());
+							
+							for(int c = 0; c < 3;++c){//for
+								int xx = 0;
+								int zz = 0;
+								if(c == 1) {
+									xx = -15;
+									zz = 15;
+								}
+								if(c == 2) {
+									xx = -15;
+									zz = -15;
+								}
+								{
+									for(int mm = 0; mm < 18; ++mm) {
+										spawn_g(inv_entity, scenario_base, world, mm, range_x, range_z, xx, zz);
+									}
+								}
+								{
+									spawn_btr(inv_entity, scenario_base, world, 0, range_x, range_z, xx, zz);
+								}
+								{
+									spawn_tank(inv_entity, scenario_base, world, 0, range_x, range_z, xx, zz);
+								}
+								if(c == 1){
+									spawn_car(inv_entity, scenario_base, world, 2, range_x, range_z, xx, zz);
+								}
+								if(c == 2){
+									spawn_car(inv_entity, scenario_base, world, 2, range_x, range_z, xx, zz);
+								}
+							}//for
+							{
+								spawn_tank(inv_entity, scenario_base, world, 1, range_x, range_z, 0, 0);
+							}
+							{
+								spawn_heli(inv_entity, scenario_base, world, 1, range_x, range_z, 0, 0);
+							}
+						}//WAVE4
+				
+				//WAVE5
+				if(inv_entity.getHealth() < spawn_start_time && inv_entity.getArmID_A() == 4 && spawn_flag){
+							inv_entity.setArmID_A(5);
+							scenario_base.sendmessage(world, inv_entity.posX, inv_entity.posY, inv_entity.posZ, 80, "WAVE5 COMMING!", true);
+							//flagtimer = 0;
+							inv_entity.setHealth(inv_entity.getMaxHealth());
+							
+							for(int c = 0; c < 3;++c){//for
+								int xx = 0;
+								int zz = 0;
+								if(c == 1) {
+									xx = -15;
+									zz = 15;
+								}
+								if(c == 2) {
+									xx = -15;
+									zz = -15;
+								}
+								{
+									for(int mm = 0; mm < 18; ++mm) {
+										spawn_g(inv_entity, scenario_base, world, mm, range_x, range_z, xx, zz);
+									}
+								}
+								{
+									spawn_btr(inv_entity, scenario_base, world, 0, range_x, range_z, xx, zz);
+								}
+								{
+									spawn_tank(inv_entity, scenario_base, world, 1, range_x, range_z, xx, zz);
+								}
+								if(c == 1){
+									spawn_car(inv_entity, scenario_base, world, 3, range_x, range_z, xx, zz);
+								}
+								if(c == 2){
+									spawn_car(inv_entity, scenario_base, world, 3, range_x, range_z, xx, zz);
+								}
+							}//for
+							{
+								spawn_tank(inv_entity, scenario_base, world, 2, range_x, range_z, 0, 0);
+							}
+							{
+								spawn_heli(inv_entity, scenario_base, world, 1, range_x, range_z, 0, 0);
+							}
+						}//WAVE5
+		
+		//WAVE_CLEAR
+				if(inv_entity.getHealth() < spawn_start_time && inv_entity.getArmID_A() == 5 && spawn_flag){
+					scenario_base.sendmessage(world, inv_entity.posX, inv_entity.posY, inv_entity.posZ, 80, "Misson Clear!", true);
+					if(!world.isRemote) {
+						{
+							world.setBlockState(new BlockPos(inv_entity.getMoveX(), inv_entity.getMoveY(), inv_entity.getMoveZ()), Blocks.CHEST.getDefaultState(), 2);
+							TileEntityChest Chest3;
+							Chest3 = (TileEntityChest) world.getTileEntity(new BlockPos(inv_entity.getMoveX(), inv_entity.getMoveY(), inv_entity.getMoveZ()));
+							Chest3.setInventorySlotContents(13, new ItemStack(mod_GVCR2.gvcr2_item_inv_normal_3, 1, 0));
+							
+							Chest3.setInventorySlotContents(4, new ItemStack(Blocks.DIAMOND_BLOCK, 8, 0));
+							Chest3.setInventorySlotContents(12, new ItemStack(Blocks.EMERALD_BLOCK, 16, 0));
+							Chest3.setInventorySlotContents(14, new ItemStack(Blocks.EMERALD_BLOCK, 16, 0));
+							Chest3.setInventorySlotContents(22, new ItemStack(Blocks.EMERALD_BLOCK, 16, 0));
+						}
+						inv_entity.setDead();
+					}
+				}
+	}
+	
+	public void spawn_g(EntityGVCR2_INV_SCENARIO inv_entity, INV_SCENARIO scenario_base, World world, int mm, int range_x, int range_z, int xx, int zz) {
+		if (!world.isRemote) {
+			EntityGVCR2_GE_S entityskeleton = new EntityGVCR2_GE_S(world);
+			if(mm == 0) {
+				entityskeleton.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_PICKAXE));
+			}else {
+				entityskeleton.setWeapon_inv(false);
+			}
+			entityskeleton.setcanDespawn(1);
+			entityskeleton.setMoveT(1);
+			entityskeleton.setMoveX((int)inv_entity.posX + scenario_base.random_int(world, 15));
+			entityskeleton.setMoveY((int)inv_entity.posY);
+			entityskeleton.setMoveZ((int)inv_entity.posZ + scenario_base.random_int(world, 15));
+			double x_pos = inv_entity.posX + range_x + xx +scenario_base.random_int(world, 15);
+			double y_pos = inv_entity.posY + 2;
+			double z_pos = inv_entity.posZ + range_z  + zz +scenario_base.random_int(world, 15);
+			entityskeleton.setLocationAndAngles(x_pos, y_pos, z_pos, -90F, 0F);
+			world.spawnEntity(entityskeleton);
+		}
+	}
+	
+	public void spawn_car(EntityGVCR2_INV_SCENARIO inv_entity, INV_SCENARIO scenario_base, World world, int id, int range_x, int range_z, int xx, int zz) {
+		if (!world.isRemote) {
+			EntityGVCR2_CAR_Technical car = new EntityGVCR2_CAR_Technical(world);
+			car.setArmID_L(id);
+			car.setcanDespawn(1);
+			car.setMoveT(1);
+			car.setMoveX((int)inv_entity.posX + scenario_base.random_int(world, 15));
+			car.setMoveY((int)inv_entity.posY);
+			car.setMoveZ((int)inv_entity.posZ + scenario_base.random_int(world, 15));
+			double x_pos = inv_entity.posX + range_x + xx +scenario_base.random_int(world, 15);
+			double y_pos = inv_entity.posY + 2;
+			double z_pos = inv_entity.posZ + range_z  + zz +scenario_base.random_int(world, 15);
+			double d5 = inv_entity.posX - x_pos;
+			double d7 = inv_entity.posZ - z_pos;
+			float rote = -((float) Math.atan2(d5, d7)) * 180.0F / (float) Math.PI;
+			car.setLocationAndAngles(x_pos, y_pos, z_pos, rote, 0F);
+			world.spawnEntity(car);
+			
+			if(car != null) {
+				for(int mm = 0; mm < car.riddng_maximum; ++mm) {
+					EntityGVCR2_GE_S entityskeleton = new EntityGVCR2_GE_S(world);
+					entityskeleton.setWeapon_inv(false);
+					entityskeleton.setcanDespawn(1);
+					entityskeleton.setMoveT(1);
+					entityskeleton.setMoveX((int)inv_entity.posX + scenario_base.random_int(world, 15));
+					entityskeleton.setMoveY((int)inv_entity.posY);
+					entityskeleton.setMoveZ((int)inv_entity.posZ + scenario_base.random_int(world, 15));
+					entityskeleton.setLocationAndAngles(x_pos, y_pos, z_pos, -90F, 0F);
+					world.spawnEntity(entityskeleton);
+					entityskeleton.startRiding(car);
+				}
+			}
+		}
+	}
+	
+	public void spawn_btr(EntityGVCR2_INV_SCENARIO inv_entity, INV_SCENARIO scenario_base, World world, int mmz, int range_x, int range_z, int xx, int zz) {
+		if (!world.isRemote) {
+			EntityGVCR2_APC_BTR60 car = new EntityGVCR2_APC_BTR60(world);
+			car.setArmID_L(0);
+			car.setcanDespawn(1);
+			car.setMoveT(1);
+			car.setMoveX((int)inv_entity.posX + scenario_base.random_int(world, 15));
+			car.setMoveY((int)inv_entity.posY);
+			car.setMoveZ((int)inv_entity.posZ + scenario_base.random_int(world, 15));
+			double x_pos = inv_entity.posX + range_x + xx +scenario_base.random_int(world, 15);
+			double y_pos = inv_entity.posY + 2;
+			double z_pos = inv_entity.posZ + range_z  + zz +scenario_base.random_int(world, 15);
+			double d5 = inv_entity.posX - x_pos;
+			double d7 = inv_entity.posZ - z_pos;
+			float rote = -((float) Math.atan2(d5, d7)) * 180.0F / (float) Math.PI;
+			car.setLocationAndAngles(x_pos, y_pos, z_pos, rote, 0F);
+			world.spawnEntity(car);
+			
+			if(car != null) {
+				for(int mm = 0; mm < car.riddng_maximum; ++mm) {
+					EntityGVCR2_GE_S entityskeleton = new EntityGVCR2_GE_S(world);
+					entityskeleton.setWeapon_inv(false);
+					entityskeleton.setcanDespawn(1);
+					entityskeleton.setMoveT(1);
+					entityskeleton.setMoveX((int)inv_entity.posX + scenario_base.random_int(world, 15));
+					entityskeleton.setMoveY((int)inv_entity.posY);
+					entityskeleton.setMoveZ((int)inv_entity.posZ + scenario_base.random_int(world, 15));
+					entityskeleton.setLocationAndAngles(x_pos, y_pos, z_pos, -90F, 0F);
+					world.spawnEntity(entityskeleton);
+					entityskeleton.startRiding(car);
+				}
+			}
+		}
+	}
+	
+	public void spawn_tank(EntityGVCR2_INV_SCENARIO inv_entity, INV_SCENARIO scenario_base, World world, int id, int range_x, int range_z, int xx, int zz) {
+		if (!world.isRemote) {
+			EntityMobVehicleBase car;
+			if(id == 1) {
+				car = new EntityGVCR2_TANK_T55(world);
+			}else if(id == 2) {
+				car = new EntityGVCR2_TANK_T72(world);
+			}else {
+				car = new EntityGVCR2_TANK_T34(world);
+			}
+			car.setArmID_L(0);
+			car.setcanDespawn(1);
+			car.setMoveT(1);
+			car.setMoveX((int)inv_entity.posX + scenario_base.random_int(world, 15));
+			car.setMoveY((int)inv_entity.posY);
+			car.setMoveZ((int)inv_entity.posZ + scenario_base.random_int(world, 15));
+			double x_pos = inv_entity.posX + range_x + xx +scenario_base.random_int(world, 15);
+			double y_pos = inv_entity.posY + 2;
+			double z_pos = inv_entity.posZ + range_z  + zz +scenario_base.random_int(world, 15);
+			double d5 = inv_entity.posX - x_pos;
+			double d7 = inv_entity.posZ - z_pos;
+			float rote = -((float) Math.atan2(d5, d7)) * 180.0F / (float) Math.PI;
+			car.setLocationAndAngles(x_pos, y_pos, z_pos, rote, 0F);
+			world.spawnEntity(car);
+			
+			if(car != null) {
+				for(int mm = 0; mm < car.riddng_maximum; ++mm) {
+					EntityGVCR2_GE_S entityskeleton = new EntityGVCR2_GE_S(world);
+					entityskeleton.setWeapon_inv(false);
+					entityskeleton.setcanDespawn(1);
+					entityskeleton.setMoveT(1);
+					entityskeleton.setMoveX((int)inv_entity.posX + scenario_base.random_int(world, 15));
+					entityskeleton.setMoveY((int)inv_entity.posY);
+					entityskeleton.setMoveZ((int)inv_entity.posZ + scenario_base.random_int(world, 15));
+					entityskeleton.setLocationAndAngles(x_pos, y_pos, z_pos, -90F, 0F);
+					world.spawnEntity(entityskeleton);
+					entityskeleton.startRiding(car);
+				}
+			}
+		}
+	}
+	
+	public void spawn_heli(EntityGVCR2_INV_SCENARIO inv_entity, INV_SCENARIO scenario_base, World world, int id, int range_x, int range_z, int xx, int zz) {
+		if (!world.isRemote) {
+			EntityMobVehicleBase car;
+			if(id == 1) {
+				car = new EntityGVCR2_HELI_MI24D(world);
+			}else {
+				car = new EntityGVCR2_HELI_R22(world);
+			}
+			car.setArmID_L(0);
+			car.setcanDespawn(1);
+			car.setMoveT(1);
+			car.setMoveX((int)inv_entity.posX + scenario_base.random_int(world, 15));
+			car.setMoveY((int)inv_entity.posY);
+			car.setMoveZ((int)inv_entity.posZ + scenario_base.random_int(world, 15));
+			double x_pos = inv_entity.posX + range_x + 0 +scenario_base.random_int(world, 15);
+			double y_pos = inv_entity.posY + 2;
+			double z_pos = inv_entity.posZ + range_z  + 0 +scenario_base.random_int(world, 15);
+			double d5 = inv_entity.posX - x_pos;
+			double d7 = inv_entity.posZ - z_pos;
+			float rote = -((float) Math.atan2(d5, d7)) * 180.0F / (float) Math.PI;
+			car.setLocationAndAngles(x_pos, y_pos, z_pos, rote, 0F);
+			world.spawnEntity(car);
+			
+			if(car != null) {
+				for(int mm = 0; mm < car.riddng_maximum; ++mm) {
+					EntityGVCR2_GE_S entityskeleton = new EntityGVCR2_GE_S(world);
+					entityskeleton.setWeapon_inv(false);
+					entityskeleton.setcanDespawn(1);
+					entityskeleton.setMoveT(1);
+					entityskeleton.setMoveX((int)inv_entity.posX + scenario_base.random_int(world, 15));
+					entityskeleton.setMoveY((int)inv_entity.posY);
+					entityskeleton.setMoveZ((int)inv_entity.posZ + scenario_base.random_int(world, 15));
+					entityskeleton.setLocationAndAngles(x_pos, y_pos, z_pos, -90F, 0F);
+					world.spawnEntity(entityskeleton);
+					entityskeleton.startRiding(car);
+				}
+			}
+		}
+	}
+	
+}

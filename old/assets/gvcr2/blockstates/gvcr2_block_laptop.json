@@ -1,0 +1,8 @@
+{
+"variants": {
+"facing=north": { "model": "gvcr2:gvcr2_block_laptop" },
+"facing=south": { "model": "gvcr2:gvcr2_block_laptop" },
+"facing=west": { "model": "gvcr2:gvcr2_block_laptop" },
+"facing=east": { "model": "gvcr2:gvcr2_block_laptop" }
+}
+}
