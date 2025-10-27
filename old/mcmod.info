@@ -1,12 +1,12 @@
 [
 {
   "logoFile":"logo.png",
-  "modid": "gvcr2",
-  "name": "GVCReversion2",
+  "modid": "gvcnf",
+  "name": "GVCNeoForged",
   "description": "",
-  "version": "1.12.2",
-  "updateUrl": "https://twitter.com/SCOPE_MG36",
-  "authorList": ["SCOPE_MG36"],
+  "version": "1.21.1",
+  "updateUrl": "https://github.com/nemonet1337",
+  "authorList": ["nemonet1337"],
   "credits": "",
   "url": ""
 }
